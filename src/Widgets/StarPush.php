@@ -95,6 +95,10 @@ class StarPush
 		else
 			return $out;
 	}
+	public function get($parametres='',$return=true)
+	{
+		return $this->out($parametres,!$return);
+	}
 	public function infos($tolerant=false)
 	{
 		$url='http://starpush.selfbuild.fr/get.php?ref='.$this->identifiant;
