@@ -1,7 +1,11 @@
-<?php namespace Widgets;
+<?php
+namespace Utils\Widgets;
 
 class StarPush
 {
+	const GRAY_STAR = 'http://starpush.selfbuild.fr/images/etoile_g.png';
+	const GREEN_STAR = 'http://starpush.selfbuild.fr/images/etoile_v.png';
+	const BLUE_STAR = 'http://starpush.selfbuild.fr/images/etoile_b.png';
 	private $identifiant='none';
 	private $url1=false;
 	private $url2=false;
@@ -20,31 +24,34 @@ class StarPush
 			$this->identifiant=$identifiant;
 		return $this->identifiant;
 	}
-	public function images($url1,$url2=false,$url3=false)
+	public function images($url1,$url2=false,$url3=false,$url4=false)
 	{
 		$this->url1=$url1;
 		$this->url2=$url2;
 		$this->url3=$url3;
 		$this->url4=$url4;
+		return $this;
 	}
 	public function nojs($version_nojs=true)
 	{
 		$this->version_nojs=($version_nojs==true);
+		return $this;
 	}
 	public function compression($compression=true)
 	{
 		$this->compression=($compression==true);
+		return $this;
 	}
 	public function out($parametres='',$echo=true)
 	{
 		if($this->url1!==false)
 			$images=urlencode($this->url1);
 		else
-			$images='http%3A%2F%2Fstarpush.selfbuild.fr%2Fimages%2Fetoile_g.png';
+			$images=urldecode(static::GRAY_STAR);
 		if($this->url2!==false)
 			$images.=','.urlencode($this->url2);
 		else
-			$images.=',http%3A%2F%2Fstarpush.selfbuild.fr%2Fimages%2Fetoile_v.png';
+			$images.=','.urldecode(static::GREEN_STAR);
 		if($this->url3!==false)
 			$images.=','.urlencode($this->url3);
 		elseif($this->url2!==false)
@@ -52,7 +59,7 @@ class StarPush
 		elseif($this->url1!==false)
 			$images.=','.urlencode($this->url1);
 		else
-			$images.=',http%3A%2F%2Fstarpush.selfbuild.fr%2Fimages%2Fetoile_b.png';
+			$images.=','.urldecode(static::BLUE_STAR);
 
 		if(false!==strpos(','.$parametres.',',',mini,'))
 			$lettre='m';
@@ -90,10 +97,10 @@ class StarPush
 			$out=preg_replace('#"\s+>#','">',$out);
 			$out=preg_replace('#\s+#',' ',$out);
 		}
-		if($echo)
-			echo $out;
-		else
+		if(!$echo)
 			return $out;
+		echo $out;
+		return $this;
 	}
 	public function get($parametres='',$return=true)
 	{
