@@ -70,7 +70,7 @@ class CSV {
 			if(static::BOM_UTF8) {
 				fwrite($stream, "\xEF\xBB\xBF");
 			}
-			fputcsv($stream, array_merge(array('file', 'key'), $languages), static::DELIMITER);
+			static::put($stream, array_merge(array('file', 'key'), $languages));
 			foreach (head($langFiles) as $index => $subLangFile) {
 				$file = preg_replace('#\.php$#', '', substr($subLangFile, intval(strpos($subLangFile, '/', strlen($dir) + 1)) + 1));
 				foreach (static::langTexts($subLangFile) as $key => $value) {
@@ -78,11 +78,31 @@ class CSV {
 					foreach ($langFiles as $language => $subLangFiles) {
 						$fields[] = static::langTexts($subLangFiles[$index], $key);
 					}
-					fputcsv($stream, $fields, static::DELIMITER);
+					static::put($stream, $fields);
 				}
 			}
 			fclose($stream);
 		}
 		return $csvFile;
+	}
+
+	static public function put($stream, $fields) {
+
+		return fputcsv($stream, $fields, static::DELIMITER);
+	}
+
+	static public function add($stream, $fields) {
+
+		return $this->put($stream, $fields);
+	}
+
+	static public function get($stream, $param = null) {
+
+		return fgetcsv($stream, $param, static::DELIMITER);
+	}
+
+	static public function next($stream, $param = null) {
+
+		return $this->get($stream, $param);
 	}
 }
