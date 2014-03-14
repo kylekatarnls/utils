@@ -60,8 +60,7 @@ class CSV {
 		}, array_combine($languages, $languages));
 		$time = max(array_map('filemtime', array_flatten($langFiles)));
 		$storage = app_path() . '/storage/lang-csv';
-		if( ! file_exists($storage))
-		{
+		if( ! file_exists($storage)) {
 			mkdir($storage, 0777);
 			file_put_contents($storage . '/.gitignore', "*\n!.gitignore");
 		}
