@@ -115,5 +115,21 @@ class StarPush
 			return array('ref'=>$this->identifiant,'succes'=>false);
 		return $donnees;
 	}
+	public function microdata($name='StarPush', $txt1 = '', $txt2 = 'sur', $txt3 = 'notes', $scope=null)
+	{
+		if(is_null($scope))
+			$scope=$this->identifiant;
+		$infos=$this->infos();
+		$total=intval($infos['total']);
+		$moyenne=round($infos['notes']/2/max($total,1));
+		return '
+		<span itemscope="'.$scope.'" itemtype="http://schema.org/Product">'.
+			'<span itemprop="name">StarPush</span>'.$txt1.
+			'<span itemprop="aggregateRating" itemscope="'.$scope.'" itemtype="http://schema.org/AggregateRating">'.
+				'<span itemprop="ratingValue">'.number_format($moyenne, 1, ',', ' ').'</span>'.$txt2.
+				'<span itemprop="reviewCount">'.$total.'</span>'.$txt3.
+			'</span>'.
+		'</span>';
+	}
 }
 ?>
