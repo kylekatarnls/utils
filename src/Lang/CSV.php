@@ -93,7 +93,7 @@ class CSV {
 
 	static public function add($stream, $fields) {
 
-		return $this->put($stream, $fields);
+		return static::put($stream, $fields);
 	}
 
 	static public function get($stream, $param = null) {
@@ -103,6 +103,6 @@ class CSV {
 
 	static public function next($stream, $param = null) {
 
-		return $this->get($stream, $param);
+		return static::get($stream, $param);
 	}
 }

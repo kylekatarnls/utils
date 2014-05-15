@@ -1,11 +1,14 @@
 {
     "name": "kylekatarnls/utils",
-    "description": "Utils for Hologame",
+    "description": "Utils for SGame",
     "homepage": "https://github.com/kylekatarnls/utils",
     "type": "library",
-    "license": "MIT",
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "kylekatarnls/sbp": "*",
+        "kylekatarnls/jade-php": "*",
+        "coffeescript/coffeescript": "*",
+        "nesbot/carbon": "dev-master"
     },
     "autoload": {
         "psr-4": {
