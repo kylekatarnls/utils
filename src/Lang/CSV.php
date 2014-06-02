@@ -32,7 +32,7 @@ class CSV {
 		return is_null($key) ? $cache[$file] : array_get($cache[$file], $key, $default);
 	}
 
-	static public function convert($languages = null, $onlyFiles = null) {
+	static public function convert($languages = null, $onlyFiles = null, $basedLanguage = null) {
 
 		$dir = app_path() . '/lang';
 		if(is_null($languages)) {
@@ -71,7 +71,7 @@ class CSV {
 				fwrite($stream, "\xEF\xBB\xBF");
 			}
 			static::put($stream, array_merge(array('file', 'key'), $languages));
-			foreach (head($langFiles) as $index => $subLangFile) {
+			foreach (is_null($basedLanguage) || ! isset($langFiles[$basedLanguage]) ? head($langFiles) : $langFiles[$basedLanguage] as $index => $subLangFile) {
 				$file = preg_replace('#\.php$#', '', substr($subLangFile, intval(strpos($subLangFile, '/', strlen($dir) + 1)) + 1));
 				foreach (static::langTexts($subLangFile) as $key => $value) {
 					$fields = array($file, $key);
