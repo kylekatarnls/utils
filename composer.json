@@ -5,10 +5,10 @@
     "type": "library",
     "require": {
         "php": ">=5.3.0",
-        "kylekatarnls/sbp": "*",
-        "kylekatarnls/jade-php": "*",
-        "coffeescript/coffeescript": "*",
-        "nesbot/carbon": "dev-master"
+        "kylekatarnls/sbp": "^1.6",
+        "pug-php/pug": "^2.4",
+        "kylekatarnls/coffeescript": "^1.0",
+        "nesbot/carbon": "^1.21"
     },
     "autoload": {
         "psr-4": {
